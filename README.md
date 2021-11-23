@@ -1,3 +1,27 @@
+# SANDSTORM FORK of yubikey-agent
+
+This tool is so critical for our Yubikey usage; that's why we decided to fork it to have full control over the build
+pipeline etc.
+
+ADJUSTMENTS compared to upstream fork:
+
+- [Re-add "save to keychain" on OSX](https://github.com/FiloSottile/yubikey-agent/pull/108)
+- release with goreleaser
+
+**Build Pipeline**
+
+We could not get Github actions to work properly (due to cross compile and other issues); so we
+are compiling locally (tested on M1 Mac):
+
+
+
+
+Original readme follows below.
+
+---
+---
+---
+
 # yubikey-agent
 
 yubikey-agent is a seamless ssh-agent for YubiKeys.

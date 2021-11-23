@@ -1,3 +1,28 @@
+# SANDSTORM FORK of yubikey-agent
+
+This tool is so critical for our Yubikey usage; that's why we decided to fork it to have full control over the build
+pipeline etc.
+
+ADJUSTMENTS compared to upstream fork:
+
+- [Re-add "save to keychain" on OSX](https://github.com/FiloSottile/yubikey-agent/pull/108)
+- GitHub Actions based release with goreleaser
+
+**Build Pipeline**
+
+> If you need to push the homebrew tap to another repository, you must therefore create a custom Personal Access Token
+> with repo permissions and add it as a secret in the repository. If you create a secret named GH_PAT, the step will
+> look like this:
+
+- we use the *sandstorm-ghbot* user for this, who has write access to the https://github.com/sandstorm/homebrew-tap repo.
+- the token is an organization-level token named SANDSTORM_GHBOT_TOKEN.
+
+Original readme follows below.
+
+---
+---
+---
+
 # yubikey-agent
 
 yubikey-agent is a seamless ssh-agent for YubiKeys.

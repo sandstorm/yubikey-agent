@@ -1,0 +1,53 @@
+before:
+  hooks:
+    - go mod tidy
+builds:
+  -
+    env:
+      - CGO_ENABLED=0
+    id: "yubikey-agent"
+    main: ./main.go
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+archives:
+- replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+
+brews:
+  -
+    name: sandstorm-yubikey-agent
+
+    tap:
+      owner: sandstorm
+      name: homebrew-tap
+
+    # Git author used to commit to the repository.
+    # Defaults are shown.
+    commit_author:
+      name: Sandstorm Release Bot
+      email: release-bot@sandstorm.de
+
+    # Folder inside the repository to put the formula.
+    # Default is the root folder.
+    folder: Formula
+
+    # Your app's homepage.
+    # Default is empty.
+    homepage: "https://github.com/sandstorm/yubikey-agent"

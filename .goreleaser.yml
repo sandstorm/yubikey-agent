@@ -51,3 +51,33 @@ brews:
     # Your app's homepage.
     # Default is empty.
     homepage: "https://github.com/sandstorm/yubikey-agent"
+
+    # modelled after https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/yubikey-agent.rb
+    custom_block: |
+      def post_install
+        (var/"run").mkpath
+        (var/"log").mkpath
+      end
+
+      def caveats
+        <<~EOS
+          To use this SSH agent, add the config to ~/.ssh/config:
+
+            Host *
+              IdentityAgent #{var}/run/yubikey-agent.sock
+        EOS
+      end
+
+      service do
+        run [opt_bin/"yubikey-agent", "-l", var/"run/yubikey-agent.sock"]
+        keep_alive true
+        log_path var/"log/yubikey-agent.log"
+        error_log_path var/"log/yubikey-agent.log"
+      end
+
+      test do
+        socket = testpath/"yubikey-agent.sock"
+        fork { exec bin/"yubikey-agent", "-l", socket }
+        sleep 1
+        assert_predicate socket, :exist?
+      end

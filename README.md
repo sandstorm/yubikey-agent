@@ -13,7 +13,11 @@ ADJUSTMENTS compared to upstream fork:
 We could not get Github actions to work properly (due to cross compile and other issues); so we
 are compiling locally (tested on M1 Mac):
 
-
+```
+git tag v0.1.5-p4
+git push origin v0.1.5-p4
+goreleaser --rm-dist
+```
 
 
 Original readme follows below.

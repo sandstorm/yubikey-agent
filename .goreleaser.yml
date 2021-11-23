@@ -54,6 +54,8 @@ brews:
 
     # modelled after https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/yubikey-agent.rb
     custom_block: |
+      conflicts_with "yubikey-agent", because: "you'll want to use the sandstorm forked version of yubikey-agent"
+
       def post_install
         (var/"run").mkpath
         (var/"log").mkpath

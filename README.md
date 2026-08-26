@@ -11,13 +11,31 @@ ADJUSTMENTS compared to upstream fork:
 
 **Build Pipeline**
 
-We could not get Github actions to work properly (due to cross compile and other issues); so we
-are compiling locally (tested on M1 Mac):
+Releases are built automatically by GitHub Actions (`.github/workflows/release.yml`) whenever a
+`v*` tag is pushed. Earlier attempts at this failed because the build was cross-compiling CGO
+(needed for the macOS PCSC framework) from a Linux runner; the workflow avoids that entirely by
+building natively on a `macos-26` runner, using Apple's clang to target both `amd64` and `arm64`
+from the same machine.
+
+To cut a release:
 
 ```
 git tag v0.1.5-p4
 git push origin v0.1.5-p4
-goreleaser --rm-dist
+```
+
+That's it — the tag push triggers the workflow, which runs `goreleaser release --clean`, publishes
+the GitHub Release with both architecture binaries, and pushes the updated formula to
+`sandstorm/homebrew-tap`.
+
+The workflow needs a repo secret `HOMEBREW_TAP_GITHUB_TOKEN`: a personal access token with `repo`
+write access to both this repository and `sandstorm/homebrew-tap` (the default `GITHUB_TOKEN` is
+scoped to this repo only, so it can't push the tap update).
+
+If you ever need to build a release locally instead (e.g. to debug the pipeline):
+
+```
+goreleaser release --clean
 ```
 
 

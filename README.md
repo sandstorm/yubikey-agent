@@ -7,6 +7,7 @@ ADJUSTMENTS compared to upstream fork:
 
 - [Re-add "save to keychain" on OSX](https://github.com/FiloSottile/yubikey-agent/pull/108)
 - release with goreleaser
+- upgrade to go-piv 2.5.0 to support ED25519 public keys
 
 **Build Pipeline**
 
@@ -170,9 +171,9 @@ If the PUK is also entered incorrectly three times, the key is permanently irrec
 
 `yubikey-agent` only officially supports YubiKeys set up with `yubikey-agent -setup`.
 
-In practice, any PIV token with an RSA or ECDSA P-256 key and certificate in the Authentication slot should work, with any PIN and touch policy. Simply skip the setup step and use `ssh-add -L` to view the public key.
+In practice, any PIV token with an RSA, ECDSA P-256, or (on YubiKey firmware 5.7+) Ed25519 key and certificate in the Authentication slot should work, with any PIN and touch policy. Simply skip the setup step and use `ssh-add -L` to view the public key.
 
-`yubikey-agent -setup` generates a random Management Key and [stores it in PIN-protected metadata](https://pkg.go.dev/github.com/go-piv/piv-go/piv?tab=doc#YubiKey.SetMetadata).
+`yubikey-agent -setup` generates a random Management Key and [stores it in PIN-protected metadata](https://pkg.go.dev/github.com/go-piv/piv-go/v2/piv?tab=doc#YubiKey.SetMetadata).
 
 ### Alternatives
 

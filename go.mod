@@ -1,9 +1,9 @@
 module filippo.io/yubikey-agent
 
-go 1.17
+go 1.20
 
 require (
-	github.com/go-piv/piv-go v1.9.0
+	github.com/go-piv/piv-go/v2 v2.5.0
 	github.com/gopasspw/pinentry v0.0.3-0.20211111080829-f73e4f2a12d3
 	github.com/zalando/go-keyring v0.1.1
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b

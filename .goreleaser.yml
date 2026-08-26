@@ -24,7 +24,7 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 changelog:
   sort: asc
   filters:
@@ -48,7 +48,7 @@ brews:
 
     # Folder inside the repository to put the formula.
     # Default is the root folder.
-    folder: Formula
+    directory: Formula
 
     # Your app's homepage.
     # Default is empty.
